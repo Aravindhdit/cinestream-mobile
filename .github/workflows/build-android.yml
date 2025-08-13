@@ -1,4 +1,4 @@
-name: Build Android APK (Docker)
+name: Build Android APK
 
 on:
   push:
@@ -13,19 +13,20 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Disable BuildKit
-        run: echo "DOCKER_BUILDKIT=0" >> $GITHUB_ENV
+      - name: Disable BuildKit (to avoid unsupported media type errors)
+        run: |
+          export DOCKER_BUILDKIT=0
+          export COMPOSE_DOCKER_CLI_BUILD=0
 
       - name: Build with Docker
         run: |
           docker run --rm \
-            -v ${{ github.workspace }}:/app \
-            -w /app \
-            kivy/buildozer:stable \
-            buildozer android debug
+            -v ${{ github.workspace }}:/home/user/app \
+            kivy/buildozer:latest \
+            buildozer -v android debug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: CineStream-APK
+          name: my-android-apk
           path: bin/*.apk
