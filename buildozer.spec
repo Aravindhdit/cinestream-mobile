@@ -32,7 +32,7 @@ requirements = python3,kivy==2.1.0,flask==2.3.3,werkzeug==2.3.7,jinja2==3.1.2,ma
 # icon.filename = %(source.dir)s/icon.png
 
 # (str) Supported orientation (one of landscape, sensorLandscape, portrait or all)
-orientation = all
+orientation = portrait
 
 # (bool) Indicate if the application should be fullscreen or not
 fullscreen = 0
